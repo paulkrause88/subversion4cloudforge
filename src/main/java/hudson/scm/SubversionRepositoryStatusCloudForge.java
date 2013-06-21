@@ -23,6 +23,7 @@
  */
 package hudson.scm;
 
+import static java.util.logging.Level.FINE;
 import static java.util.logging.Level.INFO;
 import static java.util.logging.Level.WARNING;
 import static javax.servlet.http.HttpServletResponse.SC_BAD_REQUEST;
@@ -36,6 +37,7 @@ import hudson.scm.SubversionSCM.ModuleLocation;
 import hudson.scm.SubversionSCM.SvnInfo;
 import hudson.triggers.SCMTrigger;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -130,6 +132,19 @@ public class SubversionRepositoryStatusCloudForge extends AbstractModelObject {
 	 */
 	@RequirePOST
 	public void doNotifyCommit(StaplerRequest req, StaplerResponse rsp) throws IOException {
+
+		if (LOGGER.isLoggable(FINE)) {
+			// log the entire request as received to help debug parsing issues
+			BufferedReader r = req.getReader();
+			try {
+				for (String line = r.readLine(); line != null; line = r.readLine()) {
+					LOGGER.log(FINE, line);
+				}
+			} finally {
+				r.close();
+			}
+			// BEWARE: the request may be spoiled now (depends on container)
+		}
 
 		final String service  = req.getParameter("service");
 		final String project  = req.getParameter("project");
