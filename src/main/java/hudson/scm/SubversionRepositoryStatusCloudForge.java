@@ -70,7 +70,7 @@ public class SubversionRepositoryStatusCloudForge extends AbstractModelObject {
 		try {
 			return (Boolean) IS_IGNORE_POST_COMMIT_HOOKS_METHOD.invoke(trigger);
 		} catch (Exception e) {
-			LOGGER.log(WARNING, "Failure when calling isIgnorePostCommitHooks",	e);
+			LOGGER.log(WARNING, "Failure when calling isIgnorePostCommitHooks", e);
 			return false;
 		}
 	}
@@ -129,7 +129,7 @@ public class SubversionRepositoryStatusCloudForge extends AbstractModelObject {
 	 * </ul>
 	 */
 	@RequirePOST
-	public void doNotifyCommit(StaplerRequest req, StaplerResponse rsp)	throws IOException {
+	public void doNotifyCommit(StaplerRequest req, StaplerResponse rsp) throws IOException {
 
 		final String service  = req.getParameter("service");
 		final String project  = req.getParameter("project");
@@ -155,7 +155,7 @@ public class SubversionRepositoryStatusCloudForge extends AbstractModelObject {
 		try {
 			root = SVNURL.create("https", null, host, port, project, false);
 		} catch (SVNException e) {
-			LOGGER.log(WARNING,	"Failed to handle Subversion commit notification", e);
+			LOGGER.log(WARNING, "Failed to handle Subversion commit notification", e);
 			rsp.setStatus(SC_BAD_REQUEST);
 			return;
 		}
@@ -222,7 +222,7 @@ public class SubversionRepositoryStatusCloudForge extends AbstractModelObject {
 				}
 
 			} catch (SVNException e) {
-				LOGGER.log(WARNING,	"Failed to handle Subversion commit notification", e);
+				LOGGER.log(WARNING, "Failed to handle Subversion commit notification", e);
 			}
 		}
 
