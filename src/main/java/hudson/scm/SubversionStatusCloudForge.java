@@ -53,7 +53,7 @@ public class SubversionStatusCloudForge extends AbstractModelObject implements U
     }
 
     /**
-     * @param domain name of svn provider. "cloudforge.com" for example
+     * @param provider domain name of svn provider. "cloudforge.com" for example
      * @return a model object for that provider
      */
     public SubversionRepositoryStatusCloudForge getDynamic(String provider) {
